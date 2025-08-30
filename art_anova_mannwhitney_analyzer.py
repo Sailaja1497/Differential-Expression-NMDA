@@ -3,7 +3,29 @@
 
 """
 ART ANOVA + Post-hoc Mann–Whitney U on aligned-ranked data - LOOP VERSION
-Runs across all CSV files in threeway_data folder and includes filename in results.
+
+This script performs Aligned Rank Transform (ART) ANOVA followed by post-hoc Mann-Whitney U tests
+on aligned-ranked data. It runs across all CSV files in a specified folder and includes filename
+in results for comprehensive analysis.
+
+Key Features:
+- ART ANOVA (Type II) on aligned-ranked data for non-parametric factorial analysis
+- Post-hoc Mann-Whitney U tests with multiple testing correction
+- Support for up to 3-way factorial designs
+- Batch processing of multiple CSV files
+- Comprehensive output including individual and combined results
+- Effect size calculations (Cliff's delta and r effect size)
+
+Required Libraries and Versions:
+- pandas>=1.3.0: Data manipulation and analysis library for organizing data (pd.read_csv), creating DataFrames, and exporting results to CSV format (df.to_csv)
+- numpy>=1.20.0: Fundamental package for scientific computing, providing numerical operations (np.nan), array handling, and statistical computations throughout the analysis pipeline
+- scipy>=1.7.0: Scientific computing library providing statistical functions including ranking (rankdata) and non-parametric tests (mannwhitneyu) for the ART procedure
+- statsmodels>=0.13.0: Statistical modeling library for linear models (ols), ANOVA analysis (anova_lm), and multiple testing correction (multipletests) including Holm and FDR methods
+- itertools: Standard library for generating factor combinations (combinations) to analyze all possible factorial effects
+- typing: Standard library for type hints (List, Dict, Tuple, Optional) to improve code readability and IDE support
+- os: Standard library for file path operations (os.path.join, os.path.basename), directory creation (os.makedirs), and file system operations
+- glob: Standard library for pattern-based file searching (glob.glob) to find all CSV files in the data directory
+- math: Standard library for mathematical operations including square root (math.sqrt) in effect size calculations
 
 Factors (categorical): e.g., Genotype, Region, Subunit
 Response (numeric): e.g., Integrated Density, Mean Intensity, etc.
@@ -14,17 +36,17 @@ Outputs:
 - Individual results per file in art_outputs_mann_loop/
 """
 
-import os
-import math
-import pandas as pd
-import numpy as np
-from itertools import combinations
-from typing import List, Dict, Tuple, Optional
-from scipy.stats import rankdata, mannwhitneyu
-from statsmodels.formula.api import ols
-from statsmodels.stats.anova import anova_lm
-from statsmodels.stats.multitest import multipletests
-import glob
+import os                             # Used for file path operations (os.path.join, os.path.basename), directory creation (os.makedirs), and file system operations
+import math                           # Used for mathematical operations including square root (math.sqrt) in effect size calculations
+import pandas as pd                   # Used for data manipulation (pd.read_csv), DataFrame operations, and CSV export (df.to_csv) for statistical results
+import numpy as np                    # Used for numerical operations (np.nan), array handling, and statistical computations throughout the analysis pipeline
+from itertools import combinations    # Used to generate all possible factor combinations for factorial ANOVA effects (main effects, 2-way, 3-way interactions)
+from typing import List, Dict, Tuple, Optional  # Used for type hints to improve code readability and IDE support for complex data structures
+from scipy.stats import rankdata, mannwhitneyu  # Used for ranking data (rankdata) in ART procedure and non-parametric pairwise comparisons (mannwhitneyu)
+from statsmodels.formula.api import ols         # Used for fitting linear models (ols) in the ART alignment and ANOVA procedures
+from statsmodels.stats.anova import anova_lm    # Used for performing ANOVA analysis (anova_lm) on ranked data with Type II sums of squares
+from statsmodels.stats.multitest import multipletests  # Used for multiple testing correction (multipletests) including Holm and FDR methods
+import glob                           # Used for pattern-based file searching (glob.glob) to find all CSV files in the data directory
 
 # ================================
 # Core ART utilities
