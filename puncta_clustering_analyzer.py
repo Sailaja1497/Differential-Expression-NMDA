@@ -1,4 +1,8 @@
 """
+
+Author: Sailaja Kuruvada
+Date: 2025
+
 Puncta Clustering Analysis Tool
 
 This script analyzes fluorescent microscopy images to detect and cluster puncta (small fluorescent spots).
@@ -13,6 +17,14 @@ Key Features:
 - Visualization of clustering results
 - Metadata parsing from filenames
 
+OUTPUT RESULTS:
+- CSV file: 'Puncta_Clustering_Results.csv'
+  Contains: Puncta clustering analysis results for each image
+  Columns: PunctaCount, ClusterCount, MeanClusterSize, MaxClusterSize, TotalClusterArea, MeanPunctaArea, Genotype, Region, Slice, MIP, Stain, Magnification
+  Format: One row per analyzed image
+  Metrics: Puncta counts, cluster statistics, spatial distribution data
+- Visualization Images: Cluster analysis plots showing detected puncta and cluster assignments
+
 Required Libraries and Versions:
 - opencv-python>=4.5.0: Computer vision library for image processing operations including convex hull calculations (cv2.convexHull) and contour area measurements (cv2.contourArea) to analyze cluster spatial properties
 - numpy>=1.20.0: Fundamental package for scientific computing, providing multi-dimensional array objects and mathematical functions for coordinate manipulation (coordinates[:, :2]), statistical calculations (np.mean, np.sum), and mathematical operations throughout the analysis pipeline
@@ -21,8 +33,6 @@ Required Libraries and Versions:
 - scikit-image>=0.18.0: Image processing library implementing blob detection algorithms (Laplacian of Gaussian) for automatic puncta identification (blob_log) and image I/O operations (io.imread) for loading microscopy images
 - scikit-learn>=1.0.0: Machine learning library providing the DBSCAN clustering algorithm (DBSCAN.fit) for spatial grouping of detected puncta based on proximity metrics to group nearby fluorescent spots into clusters
 
-Author: [Your Name]
-Date: [Current Date]
 """
 
 import cv2

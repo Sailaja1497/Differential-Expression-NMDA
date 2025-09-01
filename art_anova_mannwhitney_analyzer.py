@@ -1,7 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+
 
 """
+
+Author: Sailaja Kuruvada
+Date: 2025
+
+
 ART ANOVA + Post-hoc Mann–Whitney U on aligned-ranked data - LOOP VERSION
 
 This script performs Aligned Rank Transform (ART) ANOVA followed by post-hoc Mann-Whitney U tests
@@ -30,10 +34,18 @@ Required Libraries and Versions:
 Factors (categorical): e.g., Genotype, Region, Subunit
 Response (numeric): e.g., Integrated Density, Mean Intensity, etc.
 
-Outputs:
-- Individual ART_ANOVA_*.csv files for each dataset
-- Combined_ART_ANOVA_results.csv (all files combined)
-- Individual results per file in art_outputs_mann_loop/
+OUTPUT RESULTS:
+- CSV files: Individual 'ART_ANOVA_*.csv' files for each dataset
+  Contains: ART ANOVA results for each input CSV file
+  Columns: Source, SS, DF, MS, F, p_value, p_uncorrected, significant
+  Format: One row per statistical effect (main effects, interactions)
+- CSV file: 'Combined_ART_ANOVA_results.csv' (all files combined)
+  Contains: Combined ART ANOVA results from all processed datasets
+  Columns: Filename, Source, SS, DF, MS, F, p_value, p_uncorrected, significant
+  Format: One row per statistical effect per dataset
+- Directory: 'art_outputs_mann_loop/' containing individual results per file
+  Contains: Detailed statistical analysis outputs for each dataset
+  Includes: ANOVA tables, post-hoc test results, effect sizes, multiple testing corrections
 """
 
 import os                             # Used for file path operations (os.path.join, os.path.basename), directory creation (os.makedirs), and file system operations

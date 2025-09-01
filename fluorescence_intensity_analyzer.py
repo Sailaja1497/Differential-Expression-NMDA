@@ -1,4 +1,9 @@
 """
+
+Author: Sailaja Kuruvada
+Date: 2025
+
+
 Fluorescence Intensity Analysis Tool
 
 This script analyzes fluorescence intensity in microscopy images by performing background subtraction,
@@ -15,6 +20,13 @@ Key Features:
 - Metadata parsing from filenames
 - Comprehensive results export to CSV
 
+OUTPUT RESULTS:
+- CSV file: 'Fluorescence_Intensity_Results.csv'
+  Contains: Fluorescence intensity metrics for each analyzed image
+  Columns: MeanIntensity, IntegratedDensity, Area, Genotype, Region, Slice, MIP, Stain, Magnification, Counterstain
+  Format: One row per analyzed TIFF image
+  Metrics: Mean intensity (average pixel value), Integrated density (sum of intensities), Area (pixel count)
+
 Required Libraries and Versions:
 - tifffile>=2020.0.0: High-performance TIFF image reading library for loading 16-bit microscopy images (tifffile.imread)
 - numpy>=1.20.0: Fundamental package for scientific computing, providing array operations (np.mean, np.sum), mathematical functions, and image data manipulation throughout the analysis pipeline
@@ -23,8 +35,7 @@ Required Libraries and Versions:
 - scikit-image>=0.18.0: Image processing library implementing thresholding algorithms (threshold_otsu) for automatic image segmentation and restoration functions (rolling_ball) for background subtraction
 - os: Standard library for file path operations (os.path.join, os.path.basename), directory creation (os.makedirs), and recursive file searching (os.walk) during batch processing
 
-Author: [Your Name]
-Date: [Current Date]
+
 """
 
 import os                             # Used for file path operations (os.path.join, os.path.basename), directory creation (os.makedirs), and recursive file searching (os.walk) during batch processing
